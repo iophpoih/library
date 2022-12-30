@@ -1,0 +1,42 @@
+body{
+    background-color:rgb(170, 166, 167);
+}
+.grid {
+    margin: auto;
+    width: 500px;
+    text-align: center;
+}
+
+.grid table {
+    border-top: 1px solid #fff;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grid th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(113, 111, 110, 0.582);
+    height: 35px;
+    line-height: 35px;
+}
+
+.grid th {
+    background-color: rgba(113, 111, 110, 0.582);
+}
+
+a {
+    text-decoration: none;
+}
+
+.book {
+    background-color: rgba(113, 111, 110, 0.582);
+    padding: 5px 0;
+}
+
+.grid .total {
+    height: 30px;
+    line-height: 30px;
+    background-color: rgba(113, 111, 110, 0.582);
+    border-top: 1px solid #fff;
+}

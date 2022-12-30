@@ -1,0 +1,218 @@
+body {
+    background-color: #ffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.grid {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(192,223,166);
+    /* border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black; */
+    background-image: url(../img/20786416_161136609000_2.jpg);
+    background-size: cover;
+    /* opacity: 0.8; */
+}
+
+.bk {
+    width: 100%;
+}
+
+.book {
+    display: flex;
+    /* border-top: 1px solid black;
+    border-bottom: 1px solid black; */
+}
+
+.b1 {
+    flex: 1;
+    background-color: rgb(192,223,166);
+    /* border-left: 1px solid black; */
+}
+
+.b1 a {
+    color: black;
+    text-decoration: none;
+}
+
+.grid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grid th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid antiquewhite;
+    height: 35px;
+    line-height: 35px;
+}
+
+.grid td a {
+    text-decoration: none;
+}
+
+.grid th {
+    background-color: rgba(113, 111, 110, 0.582);
+}
+
+.grid .total {
+    height: 30px;
+    line-height: 30px;
+    background-color: rgb(192,223,166);;
+    border-bottom: 1px solid black;
+}
+.books{
+    border: none;
+    
+    width: 600px;
+    height: 400px;
+}
+.books select{
+    width: 165px;
+    height: 34px;
+}
+.books label{
+    width: 80px;
+    margin-left: 20px;
+    display:inline-block;
+    color: rgb(118, 117, 117);
+    
+}
+.books input{
+    
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 30px;
+}
+.books input:focus{
+    color: rgb(118, 117, 117);
+}
+.books button{
+    width: 60px;
+    height: 30px;
+}
+.fly_border {
+
+    border:none;
+    
+    /* 宽高和相对定位是一定要给的,因为这会影响.animate-border子元素的定位 */
+    position: relative;
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+    
+}
+
+.fly_border::before {
+    content: " ";
+    position: absolute;
+    width: 1px;			
+    height: 100%;
+    top: -100%;
+    left: 0;
+    background-image: linear-gradient(
+        0deg,
+        transparent,
+        #03f477,
+        transparent
+    );
+    animation: two 4s linear infinite;
+}
+
+.fly_border::after {
+    content: " ";
+    position: absolute;
+    width: 1px;			
+    height: 100%;
+    bottom: -100%;
+    right: 0;
+    background-image: linear-gradient(
+        360deg,
+        transparent,
+        #03f477,
+        transparent
+    );
+    animation: four 4s linear 2s infinite;
+}
+
+.fly_border i {
+    position: absolute;
+    display: inline-block;
+    height: 1px;
+    width: 100%;
+}
+
+.fly_border .bottom {
+    bottom: 0;
+    left: -100%;
+    background-image: linear-gradient(
+        270deg,
+        transparent,
+        #03f477,
+        transparent
+    );
+    animation: one 4s linear 1s infinite;
+}
+
+.fly_border .top {
+    top: 0;
+    right: -100%;
+    background-image: linear-gradient(
+        270deg,
+        transparent,
+        #03f477,
+        transparent
+    );
+    animation: three 4s linear 3s infinite;
+}
+
+
+
+
+@keyframes one {
+    0% {
+        left: -100%;
+    }
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes two {
+    0% {
+        top: -100%;
+    }
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes three {
+    0% {
+        right: -100%;
+    }
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+@keyframes four {
+    0% {
+        bottom: -100%;
+    }
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}

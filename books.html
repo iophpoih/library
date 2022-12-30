@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/books.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <loginframe v-show="LoginFlag"></loginframe>
+        <bookframe v-show="BooksFlag"></bookframe>
+    </div>
+    <template id="login">
+        <div class="container" v-show="loginf">
+            <div class="form-box">
+                <!-- 注册 -->
+                <div class="register-box hidden">
+                    <h1>register</h1>
+                    <input type="text" id="lname" v-model="lname" placeholder="用户名" >
+                    <input type="email" id="email" v-model="email" placeholder="邮箱">
+                    <input type="password" id="lpassword" v-model="lpassword" placeholder="密码">
+                    <input type="password" id="spassword" v-model="spassword" placeholder="确认密码">
+                    <button @click="register">注册</button>
+
+                </div>
+                <!-- 登录 -->
+                <div class="login-box">
+                    <h1>login</h1>
+                    <input type="text" id="username" v-model="username" placeholder="用户名"></input>
+                    <input type="password" id="upassword" v-model="upassword" placeholder="密码"></input>
+                    <button @click="login">登录</button>
+                </div>
+            </div>
+            <div class="con-box left">
+                <h2>欢迎来到<span>图书馆</span></h2>
+                <p>祝您使用愉快</p>
+                <img src="../todomvc-app-template-master/img/left.jpg" alt="">
+                <p>已有帐号</p>
+                <button id="login">去登录</button>
+            </div>
+            <div class="con-box right">
+                <h2>欢迎来到<span>图书馆</span></h2>
+                <p>祝您使用愉快</p>
+                <img src="../todomvc-app-template-master/img/right.jpg" alt="">
+                <p>没有帐号</p>
+                <button id="register">去注册</button>
+            </div>
+        </div>
+    </template>
+    <template id="books" v-show="booksf">
+
+        <div class="grid" >
+            <div class="fly_border" v-show="addbook">
+                <i class="top"></i><i class="bottom"></i>
+                <div class="books" >
+                    <label for="id">编号：</label>
+                    <input type="text" id="id" v-model='id' :disabled='flag' v-focus>
+                    <label for="id">书名：</label>
+                    <input type="text" id="name" v-model='name'><br>
+                    <label for="id">作者：</label>
+                    <input type="text" id="author" v-model='author'>
+                    <label for="id">出版社：</label>
+                    <input type="text" id="chubanshe" v-model='chubanshe'><br>
+                    <label for="id">ISBN：</label>
+                    <input type="text" id="ISBN" v-model='ISBN'>
+                    <label for="id">版次：</label>
+                    <input type="text" id="banci" v-model='banci'><br>
+                    <label for="id">品牌：</label>
+                    <input type="text" id="pingpai" v-model='pingpai'>
+                    <label for="id">用纸：</label>
+                    <select id="yongzhi" v-model='yongzhi'>
+                        <option>铜版纸</option>
+                        <option>胶版纸</option>
+                        <option>轻型纸</option>
+                    </select><br>
+                    <label for="id">页数：</label>
+                    <input type="text" id="pages" v-model='pages'>
+                    <label for="id">类别：</label>
+                    <select id="leibie" v-model="leibie">
+                        <option>文学</option>
+                        <option>工程</option>
+                        <option>金融</option>
+                        <option>小说</option>
+                    </select><br>
+                    <button @keyup.enter="handle" @click='add' :disabled='submitFlag'>提交</button>
+                    <button @click='cancel'>取消</button>
+                </div>
+            </div>
+            <div v-show="info">
+                <div class="bk">
+                    <h1>图书管理</h1>
+                    <div class="book">
+                        <div class="b1"><a :class="{selected:filterStatus==='all'}" href="#/all">所有图书</a></div>
+                        <div class="b1"><a :class="{selected:filterStatus==='wenxue'}" href="#/wenxue">文学类图书</a></div>
+                        <div class="b1"><a :class="{selected:filterStatus==='gongcheng'}" href="#/gongcheng">工程类图书</a>
+                        </div>
+                        <div class="b1"><a :class="{selected:filterStatus==='jingro'}" href="#/jingro">金融类图书</a></div>
+                        <div class="b1"><a :class="{selected:filterStatus==='xiaoshuo'}" href="#/xiaoshuo">小说类图书</a>
+                        </div>
+                    </div>
+                </div>
+                <button @click='addo'>添加</button>
+                <div class="total">
+                    <span>图书总数：</span>
+                    <span>{{total}}</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>书名</th>
+                            <th>作者</th>
+                            <th>出版社</th>
+                            <th>ISBN</th>
+                            <th>版次</th>
+                            <th>品牌</th>
+                            <th>用纸</th>
+                            <th>页数</th>
+                            <th>类别</th>
+                            <th>录入时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr :key='item.id' v-for='(item,index) in filterItems'>
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.author}}</td>
+                            <td>{{item.chubanshe}}</td>
+                            <td>{{item.ISBN}}</td>
+                            <td>{{item.banci}}</td>
+                            <td>{{item.pingpai}}</td>
+                            <td>{{item.yongzhi}}</td>
+                            <td>{{item.pages}}</td>
+                            <td>{{item.leibie}}</td>
+                            <td>{{item.date|format}}</td>
+                            <td>
+                                <a href="" @click.prevent='updateBook(item.id)'>修改</a>
+                                <span></span>
+                                <a href="" @click.prevent='deleteBook(item.id)'>删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </template>
+    <script src="js/books.js"></script>
+    <script src="js/login.js"></script>
+</body>
+
+</html>
